@@ -2,42 +2,59 @@
 <html>
   <head>
     <title>Hello World</title>
-    <style>
-      /* Define the initial size of the iframe */
-      #my-iframe {
-        width: 1000px;
-        height: 1000px;
-      }
-      /* Make the iframe resizable */
-      #my-iframe {
-        resize: both;
-        overflow: auto;
-      }
-    </style>
   </head>
   <body>
-    <h1>Hello World</h1>
-    <iframe id="my-iframe" src="https://whocars123-oai-proxy.hf.space"></iframe>
+    <h1>Address Information</h1>
+    <pre>
+      {
+        "uptime": 77547.510025718,
+        "timestamp": 1681717017585,
+        "endpoints": {
+          "kobold": "https://whocars123-oai-proxy.hf.space",
+          "openai": "https://whocars123-oai-proxy.hf.space/proxy/openai"
+        },
+        "prompts": 66323,
+        "promptersNow": 50,
+        "keyInfo": {
+          "all": 116,
+          "active": 115,
+          "trial": 0,
+          "gpt4": 0,
+          "quotaLeft": {
+            "all": "96%"
+          }
+        },
+        "config": {
+          "port": "7860",
+          "openaiKey": "********",
+          "proxyKey": "",
+          "modelRateLimit": "8",
+          "maxOutputTokens": "500",
+          "rejectDisallowed": "true",
+          "rejectSampleRate": "0.2",
+          "rejectMessage": "This content violates /aicg/'s acceptable use policy.",
+          "logLevel": "info",
+          "logPrompts": "false",
+          "checkKeys": "true"
+        },
+        "sha": "a767044"
+      }
+    </pre>
 
     <script>
-      // Get the iframe element
-      var iframe = document.getElementById('my-iframe');
+      // Get the <pre> tag element
+      var preTag = document.getElementsByTagName('pre')[0];
       
-      // Add an event listener to resize the iframe
-      iframe.addEventListener('mousedown', function() {
-        window.addEventListener('mousemove', resizeIframe);
-      });
-
-      // Remove the event listener when the mouse button is released
-      window.addEventListener('mouseup', function() {
-        window.removeEventListener('mousemove', resizeIframe);
-      });
-
-      // Resize the iframe based on the mouse position
-      function resizeIframe(event) {
-        iframe.style.width = (event.clientX - iframe.offsetLeft) + 'px';
-        iframe.style.height = (event.clientY - iframe.offsetTop) + 'px';
-      }
+      // Extract the address information from the JSON data
+      var address = JSON.parse(preTag.textContent).endpoints.kobold;
+      
+      // Set a heading based on the address information and print only the address below it
+      var h2Tag = document.createElement('h2');
+      h2Tag.textContent = 'Kobold Address:';
+      var pTag = document.createElement('p');
+      pTag.textContent = address;
+      document.body.appendChild(h2Tag);
+      document.body.appendChild(pTag);
     </script>
   </body>
 </html>
