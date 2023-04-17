@@ -1,60 +1,56 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hello World</title>
+    <title>Table from Pre Tag</title>
   </head>
   <body>
-    <h1>Address Information</h1>
-    <pre>
-      {
-        "uptime": 77547.510025718,
-        "timestamp": 1681717017585,
-        "endpoints": {
-          "kobold": "https://whocars123-oai-proxy.hf.space",
-          "openai": "https://whocars123-oai-proxy.hf.space/proxy/openai"
-        },
-        "prompts": 66323,
-        "promptersNow": 50,
-        "keyInfo": {
-          "all": 116,
-          "active": 115,
-          "trial": 0,
-          "gpt4": 0,
-          "quotaLeft": {
-            "all": "96%"
-          }
-        },
-        "config": {
-          "port": "7860",
-          "openaiKey": "********",
-          "proxyKey": "",
-          "modelRateLimit": "8",
-          "maxOutputTokens": "500",
-          "rejectDisallowed": "true",
-          "rejectSampleRate": "0.2",
-          "rejectMessage": "This content violates /aicg/'s acceptable use policy.",
-          "logLevel": "info",
-          "logPrompts": "false",
-          "checkKeys": "true"
-        },
-        "sha": "a767044"
-      }
-    </pre>
+    <h1>Table from Pre Tag</h1>
+    <table id="my-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
 
     <script>
-      // Get the <pre> tag element
-      var preTag = document.getElementsByTagName('pre')[0];
-      
-      // Extract the address information from the JSON data
-      var address = JSON.parse(preTag.textContent).endpoints.kobold;
-      
-      // Set a heading based on the address information and print only the address below it
-      var h2Tag = document.createElement('h2');
-      h2Tag.textContent = 'Kobold Address:';
-      var pTag = document.createElement('p');
-      pTag.textContent = address;
-      document.body.appendChild(h2Tag);
-      document.body.appendChild(pTag);
+      // Define the URL of the website
+      var url = 'https://whocars123-oai-proxy.hf.space/';
+
+      // Make an HTTP request to the website
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url);
+      xhr.onload = function() {
+        // Parse the response text to extract the desired content
+        var preContent = JSON.parse(xhr.responseText);
+
+        // Get the table body element
+        var tbody = document.getElementById('my-table').querySelector('tbody');
+
+        // Loop through the contents of the pre tag and add rows to the table
+        Object.entries(preContent).forEach(([name, value]) => {
+          var row = document.createElement('tr');
+          var nameCell = document.createElement('td');
+          var valueCell = document.createElement('td');
+
+          nameCell.textContent = name;
+
+          if (typeof value === 'object') {
+            valueCell.textContent = JSON.stringify(value);
+          } else {
+            valueCell.textContent = value;
+          }
+
+          row.appendChild(nameCell);
+          row.appendChild(valueCell);
+
+          tbody.appendChild(row);
+        });
+      };
+      xhr.send();
     </script>
   </body>
 </html>
