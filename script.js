@@ -1,22 +1,7 @@
-// const Info = {
-//     name: '',
-//     URL: '',
-//     maxOutputTokens: 0,
-//     logPrompt: false,
-//     modelRateLimit: 0,
-//     rejectSampleRate: 0.0,
-//     gpt4: false,
-//     quota: {
-//         all: 0,
-//         gpt4: 0
-//     }
-// };
-const table = document.createElement('table');
 
-// create table headers
+const table = document.createElement('table');
 tableInit(table);
 
-// Define URL of site to fetch contents from.
 const urls = [
     "https://whocars123-oai-proxy.hf.space/",
     "https://whocars123-oai-proxy2.hf.space/",
@@ -26,9 +11,6 @@ const urls = [
     "https://anonjegger340-logged-cooms.hf.space/",
     "https://maceter636-8874416364.hf.space/"
 ];
-
-// const url = "https://whocars123-oai-proxy.hf.space/";
-// queryUrl(url);
 
 renderMultipleTables(urls);
 document.body.appendChild(table);  
