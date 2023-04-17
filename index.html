@@ -2,9 +2,42 @@
 <html>
   <head>
     <title>Hello World</title>
+    <style>
+      /* Define the initial size of the iframe */
+      #my-iframe {
+        width: 500px;
+        height: 500px;
+      }
+      /* Make the iframe resizable */
+      #my-iframe {
+        resize: both;
+        overflow: auto;
+      }
+    </style>
   </head>
   <body>
     <h1>Hello World</h1>
-    <iframe src="https://whocars123-oai-proxy.hf.space"></iframe>
+    <iframe id="my-iframe" src="https://whocars123-oai-proxy.hf.space"></iframe>
+
+    <script>
+      // Get the iframe element
+      var iframe = document.getElementById('my-iframe');
+      
+      // Add an event listener to resize the iframe
+      iframe.addEventListener('mousedown', function() {
+        window.addEventListener('mousemove', resizeIframe);
+      });
+
+      // Remove the event listener when the mouse button is released
+      window.addEventListener('mouseup', function() {
+        window.removeEventListener('mousemove', resizeIframe);
+      });
+
+      // Resize the iframe based on the mouse position
+      function resizeIframe(event) {
+        iframe.style.width = (event.clientX - iframe.offsetLeft) + 'px';
+        iframe.style.height = (event.clientY - iframe.offsetTop) + 'px';
+      }
+    </script>
   </body>
 </html>
