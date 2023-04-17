@@ -1,47 +1,14 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Retrieve URL from JSON Object</title>
-</head>
-<body>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>URL</th>
-      </tr>
-    </thead>
-    <tbody id="table-body">
-    </tbody>
-  </table>
+  <head>
+    <meta charset="utf-8">
+    <title>My OpenAI Endpoint</title>
+  </head>
+  <body>
+    <!-- This is where we'll output our table -->
+    <div id="output"></div>
 
-  <script>
-    var json;
-    fetch('https://whocars123-oai-proxy.hf.space')
-        .then(response => response.text())
-        .then(html => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        json = doc.querySelector('pre');
-        console.log(json);
-        })
-    .catch(error => console.error(error));
-    
-    const url = json.endpoints.openai + '/v1';
-    const name = url.match(/\/\/(.+)-oai-proxy/)[1];
-
-    const tableBody = document.getElementById('table-body');
-    const row = document.createElement('tr');
-    const nameCell = document.createElement('td');
-    const urlCell = document.createElement('td');
-
-    nameCell.innerText = name;
-    urlCell.innerText = url;
-
-    row.appendChild(nameCell);
-    row.appendChild(urlCell);
-
-    tableBody.appendChild(row);
-  </script>
-</body>
+    <!-- Include our JavaScript file -->
+    <script src="script.js"></script>
+  </body>
 </html>
