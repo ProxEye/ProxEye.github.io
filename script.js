@@ -1,5 +1,5 @@
 
-const table = document.createElement('table');
+let table = document.createElement('table');
 tableInit(table);
 
 const urls = [
@@ -13,7 +13,17 @@ const urls = [
 ];
 
 renderMultipleTables(urls);
-document.body.appendChild(table);  
+document.body.appendChild(table);
+setInterval(loop, 10000);
+
+function loop(){
+    document.body.innerHTML = '';
+    table = document.createElement('table');
+    tableInit(table);
+    renderMultipleTables(urls);
+    document.body.appendChild(table);
+    console.log("updated!");
+}
 
 function copyText(btn) {
     var text = $(btn).closest('tr').text();
@@ -103,7 +113,6 @@ function extractJSON(json) {
         rateLimit = json.config.modelRateLimit;
         sampRate = json.config.rejectSampleRate;
         isGPT4 = json.keyInfo.gpt4;
-        console.log(name);
         quotaAll = parseFloat(json.keyInfo.quotaLeft.all);
         quotaGPT4 = parseFloat(json.keyInfo.quotaLeft.gpt4);
     }
