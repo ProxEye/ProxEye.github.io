@@ -1,56 +1,47 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Table from Pre Tag</title>
-  </head>
-  <body>
-    <h1>Table from Pre Tag</h1>
-    <table id="my-table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Value</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
+<head>
+  <title>Retrieve URL from JSON Object</title>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>URL</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+    </tbody>
+  </table>
 
-    <script>
-      // Define the URL of the website
-      var url = 'https://whocars123-oai-proxy.hf.space/';
+  <script>
+    var json;
+    fetch('https://whocars123-oai-proxy.hf.space')
+        .then(response => response.text())
+        .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        json = doc.querySelector('pre');
+        console.log(json);
+        })
+    .catch(error => console.error(error));
+    
+    const url = json.endpoints.openai + '/v1';
+    const name = url.match(/\/\/(.+)-oai-proxy/)[1];
 
-      // Make an HTTP request to the website
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', url);
-      xhr.onload = function() {
-        // Parse the response text to extract the desired content
-        var preContent = JSON.parse(xhr.responseText);
+    const tableBody = document.getElementById('table-body');
+    const row = document.createElement('tr');
+    const nameCell = document.createElement('td');
+    const urlCell = document.createElement('td');
 
-        // Get the table body element
-        var tbody = document.getElementById('my-table').querySelector('tbody');
+    nameCell.innerText = name;
+    urlCell.innerText = url;
 
-        // Loop through the contents of the pre tag and add rows to the table
-        Object.entries(preContent).forEach(([name, value]) => {
-          var row = document.createElement('tr');
-          var nameCell = document.createElement('td');
-          var valueCell = document.createElement('td');
+    row.appendChild(nameCell);
+    row.appendChild(urlCell);
 
-          nameCell.textContent = name;
-
-          if (typeof value === 'object') {
-            valueCell.textContent = JSON.stringify(value);
-          } else {
-            valueCell.textContent = value;
-          }
-
-          row.appendChild(nameCell);
-          row.appendChild(valueCell);
-
-          tbody.appendChild(row);
-        });
-      };
-      xhr.send();
-    </script>
-  </body>
+    tableBody.appendChild(row);
+  </script>
+</body>
 </html>
