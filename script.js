@@ -15,7 +15,7 @@ const urls = [
 
 renderMultipleTables(urls);
 document.body.appendChild(table);
-setInterval(loop, 10000);
+setInterval(loop, 15000);
 
 function loop(){
     document.body.innerHTML = '';
