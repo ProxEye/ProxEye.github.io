@@ -9,7 +9,8 @@ const urls = [
     "https://gookproxy-coomlemon.hf.space/",
     "https://whocars123-public-test.hf.space/",
     "https://anonjegger340-logged-cooms.hf.space/",
-    "https://maceter636-8874416364.hf.space/"
+    "https://maceter636-8874416364.hf.space/",
+    "https://maceter636-3427234278.hf.space/",
 ];
 
 renderMultipleTables(urls);
